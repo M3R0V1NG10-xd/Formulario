@@ -11,7 +11,7 @@ CORS(app)
 
 pymysql.install_as_MySQLdb()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:VkDjjaWPlTpBGZzfTNKHiksaLuLOfziJ@autorack.proxy.rlwy.net:36518/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mero:mero@localhost/formDB'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
