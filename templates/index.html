@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição JIFMA</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/google-forms.ico') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0ebf8;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            background: #fff;
+            border-top: 10px solid #673ab7;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-title {
+            font-size: 32px;
+            color: #202124;
+            margin-bottom: 12px;
+        }
+
+        .form-description {
+            font-size: 14px;
+            color: #202124;
+            margin-bottom: 12px;
+        }
+
+        .required-text {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .form-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin-bottom: 8px;
+        }
+
+        .question-title {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .required {
+            color: #d93025;
+            margin-left: 4px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .input-text:focus {
+            border-color: #673ab7;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            background-color: #f8f9fa;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .select-wrapper {
+            position: relative;
+            width: 200px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            appearance: none;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: #673ab7;
+            outline: none;
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #5f6368;
+        }
+
+        .submit-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .submit-button {
+            background-color: #673ab7;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #5c34a4;
+        }
+
+        .clear-form {
+            color: #673ab7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .clear-form:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #e6f4ea;
+            color: #1e8e3e;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* Escala Linear */
+        .linear-scale {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .scale-number {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .scale-radio {
+            margin-bottom: 8px;
+        }
+
+        .scale-label {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        /* Grade */
+        .grid-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .grid-table th, .grid-table td {
+            border: 1px solid #dadce0;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .grid-table th {
+            background-color: #f8f9fa;
+            font-weight: normal;
+            color: #5f6368;
+        }
+
+        /* Hora */
+        .time-input {
+            width: 120px;
+        }
+
+        /* Data */
+        .date-input {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    
+        <div class="form-header">
+            <h1 class="form-title">Realizar inscrição na competição IX JIFMA 2024</h1>
+            <p class="form-description">IX JOGOS DAS INSTITUIÇÕES FEDERAIS DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DO MARANHÃO - JIFMA - 2024</p>
+            <p class="required-text">* Indica um campo obrigatório</p>
+        </div>
+
+        <form id="googleForm">
+           
+            <div class="form-section">
+                <div class="question">
+                    <div class="question-title">
+                        Nome completo
+                        <span class="required">*</span>
+                    </div>
+                    <input type="text" class="input-text" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="question">
+                    <div class="question-title">
+                        Telefone/Whasapp
+                        <span class="required">*</span>
+                    </div>
+                    <input type="text" class="input-text" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="question">
+                    <div class="question-title">
+                        Curso
+                        <span class="required">*</span>
+                    </div>
+                    <input type="text" class="input-text" required>
+                </div>
+            </div>
+
+            <!-- Caixas de Seleção -->
+            <div class="form-section">
+                <div class="question">
+                    <div class="question-title">
+                            Modalidades - Individual
+                        <span class="required">*</span>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" required>
+                            Atletismo Masculino (Individual)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Natação Masculino (Individual)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Xadrez Masculino (Individual)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Tênis de Mesa Masculino (Individual)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="question">
+                    <div class="question-title">
+                            Modalidades - Individual
+                        <span class="required">*</span>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" required>
+                            Voleibol Masculino (Coletivo)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Basquetebol Masculino (Coletivo)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Handebol Masculino (Coletivo)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Vôlei de praia Masculino (Coletivo)
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox">
+                            Futsal Masculino (Coletivo)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões de Envio -->
+            <div class="submit-section">
+                <a href="#" class="clear-form">Limpar formulário</a>
+                <button onclick="window.location.href='redirect3.html'" type="submit" class="submit-button">Enviar</button>
+            </div>
+        </form>
+
+        <div class="success-message">
+            Sua resposta foi registrada com sucesso!
+        </div>
+    </div>
+
+    <script>
+
+    setTimeout(() => {
+      window.location.href = "/redirect";
+    }, 500);
+
+        document.querySelector('.clear-form').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('googleForm').reset();
+        });
+
+        document.getElementById('googleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const successMessage = document.querySelector('.success-message');
+            successMessage.style.display = 'block';
+            
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                this.reset();
+                successMessage.style.display = 'none';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
