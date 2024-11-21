@@ -11,7 +11,7 @@ CORS(app)
 
 pymysql.install_as_MySQLdb()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mero:mero@localhost/formDB'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://root:66HyCUgAA37X0KjCKMPVhBBD0Fiz4Bx0@dpg-csvcenbtq21c73empopg-a.oregon-postgres.render.com/formdb_6ik0'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -51,7 +51,6 @@ def login():
 
 @app.route('/users', methods=['GET'])
 def get_users():
-    """Retrieve all users (for admin purposes)"""
     users = User.query.all()
     return jsonify([{
         'id': user.id, 
