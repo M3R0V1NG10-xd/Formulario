@@ -6,4 +6,4 @@ requests==2.32.3
 python-dotenv==0.19.2
 Werkzeug==3.0.3
 mysqlclient
-gunicorn formAPI:app
+gunicorn==20.1.1
