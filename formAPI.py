@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://root:66HyCUgAA37X0KjCKMPVhBBD0Fiz4Bx0@dpg-csvcenbtq21c73empopg-a.oregon-postgres.render.com/formdb_6ik0'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mero:mero@localhost/formDB'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
