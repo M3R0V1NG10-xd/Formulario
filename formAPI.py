@@ -1,5 +1,4 @@
 import os
-import pymysql
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import psycopg2
@@ -9,7 +8,7 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mero:mero@localhost/formDB'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://formdb_s70u_user:gOUt5r6C5iHjzUuOzRVUD5z41FGWqE1F@dpg-ct119ct6l47c73bb2jm0-a.oregon-postgres.render.com/formdb_s70u'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
